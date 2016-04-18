@@ -53,7 +53,7 @@ describe('WordsService', function(){
     
     it('should return the letters from the word, but unsorted', function(){
 
-      letters = WS.getLetters('word');
+      letters = WS.getLetters('word', 0);
       expect(letters.length).toEqual(4);
       expect(letters.indexOf('w')).not.toEqual(-1);
       expect(letters.indexOf('o')).not.toEqual(-1);
@@ -63,6 +63,9 @@ describe('WordsService', function(){
     });
 
     it('should add N letters to the letters from the word', function(){
+
+      letters = WS.getLetters('word', 2);
+      expect(letters.length).toEqual(6);
 
     });
 

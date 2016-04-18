@@ -1,4 +1,5 @@
 var WordsService = (function(){
+  'strict mode';
 
   var views = Array.apply(null, Array(Words.length))
     .map(Number.prototype.valueOf, 0);
@@ -26,6 +27,18 @@ var WordsService = (function(){
 
   }
 
+  var randomLetter = function() {
+    return Letters[Math.floor(Math.random()*Letters.length)];
+  }
+
+  var randomLetters = function(num) {
+    if(num == 0) {
+      return '';
+    } else {
+      return randomLetter() + randomLetters(num-1);
+    }
+  }
+
   return {
 
     init: function() {
@@ -44,7 +57,7 @@ var WordsService = (function(){
 
     getLetters: function(word, extraLetters) {
 
-      return shuffle(word);
+      return shuffle(word) + randomLetters(extraLetters);
 
     }
 
