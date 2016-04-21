@@ -35,8 +35,8 @@ describe('WordsService', function(){
 
     it('should return the lesser know words for the user', function(){
 
-      Words = ['a', 'b', 'c'];
-      WS.init();
+      var words = ['a', 'b', 'c'];
+      WS.init(words);
 
       var word1 = WS.getWord();
       var word2 = WS.getWord();

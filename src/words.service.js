@@ -41,24 +41,20 @@ var WordsService = (function(){
 
   return {
 
-    init: function() {
-      views = Array.apply(null, Array(Words.length))
+    init: function(newWords) {
+      views = Array.apply(null, Array(newWords.length))
         .map(Number.prototype.valueOf, 0);
       lastWord = -1;
     },
 
     getWord: function() {
-
       var num = min(views);
       views[num]++;
       return Words[num];
-
     },
 
     getLetters: function(word, extraLetters) {
-
       return shuffle(word) + randomLetters(extraLetters);
-
     }
 
   };
