@@ -14,6 +14,12 @@ describe('WordsService', function(){
     
   });
 
+  it('should have a getLetterColor function', function(){
+
+    expect(WS.getLetterColor).toBeDefined();
+    
+  });
+
   describe('getWords', function() {
     
     it('should return a word from the list of words', function(){
@@ -25,7 +31,7 @@ describe('WordsService', function(){
 
     it('should return a different word that the last time', function(){
 
-      for(var i=0; i < 100; i++) {
+      for(var i=0; i < 10; i++) {
         var word1 = WS.getWord();
         var word2 = WS.getWord();
         expect(word1).not.toEqual(word2);
@@ -69,5 +75,19 @@ describe('WordsService', function(){
 
     });
 
+  });
+
+  describe('getLetterColor', function(){
+
+    it('should assign always the same color to each letter', function(){
+
+      var colors = Letters.map(WS.getLetterColor);
+    
+      for(var i=0; i<Letters.length; i++) {
+        expect(WS.getLetterColor(Letters[i])).toEqual(colors[i]);
+      }
+
+    });
+    
   });
 });

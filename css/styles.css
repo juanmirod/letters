@@ -14,6 +14,18 @@ body {
   cursor: pointer;
 }
 
+.empty-letter-container {
+  background-color: #FFFFFF;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 5px 5px 10px #000000;
+  float: left;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  opacity: 0.4;
+}
+
 .letter {
   font-family: 'Stoke', 'serif';
   font-size: 56px;

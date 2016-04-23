@@ -1,6 +1,7 @@
 var WordsService = (function(){
   'strict mode';
 
+  var colors = ['#0404EE', '#04EE04', '#EE0404', '#EEEE04', '#04EEEE', '#EE04EE'];
   var views = Array.apply(null, Array(Words.length))
     .map(Number.prototype.valueOf, 0);
   var lastWord = -1;
@@ -55,6 +56,10 @@ var WordsService = (function(){
 
     getLetters: function(word, extraLetters) {
       return shuffle(word) + randomLetters(extraLetters);
+    },
+
+    getLetterColor: function(letter) {
+      return colors[Letters.indexOf(letter)%colors.length];
     }
 
   };
