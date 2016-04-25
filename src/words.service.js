@@ -1,19 +1,19 @@
 var WordsService = (function(){
   'strict mode';
 
-  var colors = ['#0404EE', '#04EE04', '#EE0404', '#EEEE04', '#04EEEE', '#EE04EE'];
-  var views = Array.apply(null, Array(Words.length))
-    .map(Number.prototype.valueOf, 0);
-  var lastWord = -1;
+  var colors = ['#0404EE', '#04EE04', '#EE0404', '#EEEE04', '#04EEEE', '#EE04EE'],
+    words = [],
+    views = [],
+    lastWord = -1,
 
-  var min = function(array) { 
+  min = function(array) { 
     return array.indexOf(Math.min.apply(null, array));
-  }
+  },
 
   /* Takes the letters from the word provided and returns 
     a new string with the letters shuffled 
   */
-  var shuffle = function(word) {
+  shuffle = function(word) {
     
     var wordLetters = word.split(""),
         n = wordLetters.length;
@@ -26,13 +26,13 @@ var WordsService = (function(){
 
     return wordLetters.join("");
 
-  }
+  },
 
-  var randomLetter = function() {
+  randomLetter = function() {
     return Letters[Math.floor(Math.random()*Letters.length)];
-  }
+  },
 
-  var randomLetters = function(num) {
+  randomLetters = function(num) {
     if(num == 0) {
       return '';
     } else {
@@ -42,16 +42,23 @@ var WordsService = (function(){
 
   return {
 
-    init: function(newWords) {
-      views = Array.apply(null, Array(newWords.length))
-        .map(Number.prototype.valueOf, 0);
+    init: function(newWords, savedViews) {
+      if(typeof savedViews == 'undefined') {
+        views = Array.apply(null, Array(words.length))
+          .map(Number.prototype.valueOf, 0);        
+      } else {
+        views = savedViews.slice();
+      }
+
+      words = newWords.slice();
+
       lastWord = -1;
     },
 
     getWord: function() {
       var num = min(views);
       views[num]++;
-      return Words[num];
+      return words[num];
     },
 
     getLetters: function(word, extraLetters) {

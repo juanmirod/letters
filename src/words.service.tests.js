@@ -1,6 +1,10 @@
 describe('WordsService', function(){
 
   var WS = WordsService;
+
+  beforeEach(function(){
+    WS.init(Words);
+  });
   
   it('should have a getLetters function', function(){
 
@@ -88,6 +92,6 @@ describe('WordsService', function(){
       }
 
     });
-    
+
   });
 });

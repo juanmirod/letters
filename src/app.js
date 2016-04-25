@@ -78,10 +78,11 @@
     var elem = document.getElementById('letters');
     elem.innerHTML = '';
     fillInLetters(letters, elem);
+    
   }
 
   //Words = ["abcdefghijklmnñopqrstuvwxyz"];
-  //WordsService.init(Words);
+  WordsService.init(Words);
   var word = WordsService.getWord();
   loadWord(word);
   loadLetters(WordsService.getLetters(word, 2));

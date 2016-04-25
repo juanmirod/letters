@@ -3,9 +3,19 @@ body {
   background-image: url('bg_wood.png');
 }
 
+#word, #letters {
+  margin: 0 auto;
+  width: 600px;
+}
+
+.clearer {
+  clear: both;
+}
+
 .letter-container {
   background-color: #FFFFFF;
   padding: 10px;
+  margin: 0 auto;
   border-radius: 10px;
   box-shadow: 5px 5px 10px #000000;
   float: left;
