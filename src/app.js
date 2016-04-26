@@ -108,7 +108,7 @@
     
   }
 
-  //Words = ["abcdefghijklmnñopqrstuvwxyz"];
+  Words = ['guillermo', 'sofía', 'mamá', 'papá', 'noa'];
   document.body.innerHTML = '    <div id="container">' +
         '<div id="word">' +
           'Loading ...' +
