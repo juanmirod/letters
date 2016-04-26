@@ -34,7 +34,7 @@
 
   }
 
-  function createClickabkeLetterElem(letter) {
+  function createClickableLetterElem(letter) {
 
     var elem = createElement('div');
 
@@ -47,10 +47,15 @@
 
   function addLetter() {
     var elem = getElement('word');
-    fillInLetter(elem, this.textContent);
-
+    
     this.removeEventListener('click', this.clickListener);
-    removeElement(this);
+    
+    if(fillInLetter(elem, this.textContent)) {
+      removeElement(this);
+    } else {
+      this.className = 'letter-container wrong';
+    }
+
   }
 
   function fillInLetter(wordElem, letter) {
@@ -79,7 +84,7 @@
 
   function fillInLetters(letters, elem) {
 
-    var letters = letters.split('').map(createClickabkeLetterElem);
+    var letters = letters.split('').map(createClickableLetterElem);
     
     letters.forEach(appendTo(elem));
 

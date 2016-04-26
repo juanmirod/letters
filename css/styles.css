@@ -45,3 +45,13 @@ body {
   border-radius: 10px;
   text-align: center;
 }
+
+.letter-container.wrong {
+  color: #EE0404;
+  background-color: #DDDDDD;
+  cursor: auto;
+}
+
+.letter-container.wrong .letter {
+  border-color: #EE0404 !important;
+}
