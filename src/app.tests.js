@@ -8,12 +8,24 @@ describe('App', function() {
   });
 
   it('should load the letters in the letters element', function(){
-
+    var elem = document.getElementById('word');
+    expect(elem.innerHTML).not.toEqual('');
   });
 
   describe('Clickable letters', function(){
 
-    it('should be clickable and call addLetter on click', function(){
+    it('should call addLetter on click', function(){
+      
+      var event = new MouseEvent('click', {
+        'view': window,
+        'bubbles': true,
+        'cancelable': true
+      });
+
+      var letterElems = document.getElementsByClassName('letter-container');
+      letterElems[0].dispatchEvent(event);
+
+      
 
     });
 

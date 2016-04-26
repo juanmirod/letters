@@ -11,12 +11,24 @@
     elem.parentElement.removeChild(elem);
   }
 
+  function getElement(id) {
+    return document.getElementById(id);
+  }
+  
+  function getElementsByClass(name) {
+    return document.getElementsByName(name);
+  }
+
+  function createElement(tag) {
+    return document.createElement(tag);
+  }
+
   function createLetterElem(letter) {
 
-    var elem = document.createElement('div');
+    var elem = createElement('div');
 
     elem.className = 'empty-letter-container';
-    elem.innerHTML = '<div class="letter">' + letter.toUpperCase() + '</div>';
+    elem.innerHTML = '<div class="letter" style="border-color:' + WordsService.getLetterColor(letter) + ';">' + letter.toUpperCase() + '</div>';
 
     return elem;
 
@@ -24,7 +36,7 @@
 
   function createClickabkeLetterElem(letter) {
 
-    var elem = document.createElement('div');
+    var elem = createElement('div');
 
     elem.className = 'letter-container';
     elem.innerHTML = '<div class="letter" style="border-color:' + WordsService.getLetterColor(letter) + ';">' + letter.toUpperCase() + '</div>';
@@ -34,14 +46,24 @@
   }
 
   function addLetter() {
-    var elem = document.getElementById('word');
+    var elem = getElement('word');
     fillInLetter(elem, this.textContent);
 
     this.removeEventListener('click', this.clickListener);
     removeElement(this);
   }
 
-  function fillInLetter(letter) {
+  function fillInLetter(wordElem, letter) {
+
+    var letterIndex = word.indexOf(letter.toLowerCase());
+    if(letterIndex == -1) {
+      return false;
+    } else {
+      console.log(letterIndex);
+      var letterElems = wordElem.childNodes;
+      letterElems[letterIndex].className = 'letter-container';
+      return true;
+    }
 
   }
 
@@ -67,7 +89,7 @@
 
   function loadWord(word) {
 
-    var elem = document.getElementById('word');
+    var elem = getElement('word');
     elem.innerHTML = '';
     fillInWord(word, elem);
 
@@ -75,7 +97,7 @@
 
   function loadLetters(letters) {
 
-    var elem = document.getElementById('letters');
+    var elem = getElement('letters');
     elem.innerHTML = '';
     fillInLetters(letters, elem);
     

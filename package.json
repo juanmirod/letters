@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "App to help 3-4 years old to familiarize with letters and words",
   "main": "index.html",
+  "private": "true",
   "scripts": {
     "test": "karma"
   },
