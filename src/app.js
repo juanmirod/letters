@@ -82,6 +82,15 @@
   }
 
   //Words = ["abcdefghijklmnñopqrstuvwxyz"];
+  document.body.innerHTML = '    <div id="container">' +
+        '<div id="word">' +
+          'Loading ...' +
+        '</div>' +
+        '<div class="clearer"></div>' +
+        '<div id="letters">' +
+        '</div>' +
+    '</div>';
+
   WordsService.init(Words);
   var word = WordsService.getWord();
   loadWord(word);

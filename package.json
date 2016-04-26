@@ -1,0 +1,29 @@
+{
+  "name": "MyFirstWords",
+  "version": "1.0.0",
+  "description": "App to help 3-4 years old to familiarize with letters and words",
+  "main": "index.html",
+  "scripts": {
+    "test": "karma"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/juanmirod/letters.git"
+  },
+  "keywords": [
+    "words"
+  ],
+  "author": "juanmirod",
+  "license": "GNU3",
+  "bugs": {
+    "url": "https://github.com/juanmirod/letters/issues"
+  },
+  "homepage": "https://github.com/juanmirod/letters",
+  "devDependencies": {
+    "jasmine-core": "^2.4.1",
+    "karma": "^0.13.22",
+    "karma-chrome-launcher": "^0.2.3",
+    "karma-firefox-launcher": "^0.1.7",
+    "karma-jasmine": "^0.3.8"
+  }
+}

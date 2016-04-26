@@ -7,7 +7,12 @@ var WordsService = (function(){
     lastWord = -1,
 
   min = function(array) { 
-    return array.indexOf(Math.min.apply(null, array));
+    var result = array.indexOf(Math.min.apply(null, array));
+    if(result == -1) {
+      return 0;
+    } else{
+      return result;
+    }
   },
 
   /* Takes the letters from the word provided and returns 
