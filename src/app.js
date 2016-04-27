@@ -1,13 +1,18 @@
 var App = (function(){
   'strict mode';
 
-  var currentState = 'words';
+  var currentState = 'home',
+      currentWord = '',
 
-  var states = {
+  states = {
     home: {
-      html: '',
+      html: '<div id="letters"></div><div id="start">JUGAR</div>',
       init: function() {
-
+        loadLetters("My first words");
+        var startElem = getElement('start');
+        startElem.addEventListener('click', function(){
+          exports.changeState('words');
+        });
       }
     },
 
@@ -21,7 +26,9 @@ var App = (function(){
             '</div>' +
             '</div>',
       init: function() {
-
+        var word = WordsService.getWord();
+        loadWord(word);
+        loadLetters(WordsService.getLetters(word, 2));
       }
     },
 
@@ -124,7 +131,23 @@ var App = (function(){
 
   }
 
-  return {
+  function loadWord(word) {
+
+    var elem = getElement('word');
+    elem.innerHTML = '';
+    fillInWord(word, elem);
+
+  }
+
+  function loadLetters(letters) {
+
+    var elem = getElement('letters');
+    elem.innerHTML = '';
+    fillInLetters(letters, elem);
+    
+  }
+
+  var exports = {
 
     init: function() {
       
@@ -135,28 +158,15 @@ var App = (function(){
 
     changeState: function(newState) {
 
-      states[currentState].destroy();
+      //states[currentState].destroy();
       document.body.innerHTML = states[newState].html;
       states[newState].init();
 
-    },
-
-    loadWord: function(word) {
-
-      var elem = getElement('word');
-      elem.innerHTML = '';
-      fillInWord(word, elem);
-
-    },
-
-    loadLetters: function(letters) {
-
-      var elem = getElement('letters');
-      elem.innerHTML = '';
-      fillInLetters(letters, elem);
-      
     }
-  }
+
+  };
+
+  return exports;
 
 })();
 
@@ -164,8 +174,5 @@ var App = (function(){
 Words = ['guillermo', 'sofía', 'mamá', 'papá', 'noa'];
 
 WordsService.init(Words);
-var word = WordsService.getWord();
 
 App.init();
-App.loadWord(word);
-App.loadLetters(WordsService.getLetters(word, 2));
