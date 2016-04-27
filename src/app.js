@@ -1,5 +1,37 @@
-(function(){
+var App = (function(){
   'strict mode';
+
+  var currentState = 'words';
+
+  var states = {
+    home: {
+      html: '',
+      init: function() {
+
+      }
+    },
+
+    words: {
+      html: '<div id="container">' +
+            '<div id="word">' +
+              'Loading ...' +
+            '</div>' +
+            '<div class="clearer"></div>' +
+            '<div id="letters">' +
+            '</div>' +
+            '</div>',
+      init: function() {
+
+      }
+    },
+
+    completed: {
+      html: '',
+      init: function() {
+
+      }
+    }
+  };
 
   function appendTo(parent) {
     return function(child) {
@@ -92,35 +124,48 @@
 
   }
 
-  function loadWord(word) {
+  return {
 
-    var elem = getElement('word');
-    elem.innerHTML = '';
-    fillInWord(word, elem);
-
-  }
-
-  function loadLetters(letters) {
-
-    var elem = getElement('letters');
-    elem.innerHTML = '';
-    fillInLetters(letters, elem);
+    init: function() {
+      
+      document.body.innerHTML = states[currentState].html;
+      states[currentState].init();
     
+    },
+
+    changeState: function(newState) {
+
+      states[currentState].destroy();
+      document.body.innerHTML = states[newState].html;
+      states[newState].init();
+
+    },
+
+    loadWord: function(word) {
+
+      var elem = getElement('word');
+      elem.innerHTML = '';
+      fillInWord(word, elem);
+
+    },
+
+    loadLetters: function(letters) {
+
+      var elem = getElement('letters');
+      elem.innerHTML = '';
+      fillInLetters(letters, elem);
+      
+    }
   }
-
-  Words = ['guillermo', 'sofía', 'mamá', 'papá', 'noa'];
-  document.body.innerHTML = '    <div id="container">' +
-        '<div id="word">' +
-          'Loading ...' +
-        '</div>' +
-        '<div class="clearer"></div>' +
-        '<div id="letters">' +
-        '</div>' +
-    '</div>';
-
-  WordsService.init(Words);
-  var word = WordsService.getWord();
-  loadWord(word);
-  loadLetters(WordsService.getLetters(word, 2));
 
 })();
+
+
+Words = ['guillermo', 'sofía', 'mamá', 'papá', 'noa'];
+
+WordsService.init(Words);
+var word = WordsService.getWord();
+
+App.init();
+App.loadWord(word);
+App.loadLetters(WordsService.getLetters(word, 2));

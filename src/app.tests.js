@@ -1,6 +1,10 @@
 describe('App', function() {
 
-  //TODO WE NEED KARMA to load a virtual dom...
+  var WS = WordsService;
+
+  beforeEach(function(){
+    WS.init(['a', 'b', 'c']);
+  });
 
   it('should load a word in the words element', function(){
     var elem = document.getElementById('word');
@@ -12,27 +16,16 @@ describe('App', function() {
     expect(elem.innerHTML).not.toEqual('');
   });
 
-  describe('Clickable letters', function(){
-
-    it('should call addLetter on click', function(){
-      
-      var event = new MouseEvent('click', {
-        'view': window,
-        'bubbles': true,
-        'cancelable': true
-      });
-
-      var letterElems = document.getElementsByClassName('letter-container');
-      letterElems[0].dispatchEvent(event);
-
-      
-
+  it('should check if the user has completed the word', function(){
+    var event = new MouseEvent('click', {
+      'view': window,
+      'bubbles': true,
+      'cancelable': true
     });
 
-    it('should check when the user has completed the word', function(){
+    var letterElems = document.getElementsByClassName('letter-container');
+    letterElems[0].dispatchEvent(event);
 
-    });
-
+    expect(App.wordCompleted).toEqual(true);
   });
-
 });
