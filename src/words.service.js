@@ -1,16 +1,17 @@
-var WordsService = (function(){
-  'strict mode';
+var WordsService = (function WordServiceDef() {
+  'use strict';
 
   var colors = ['#0404EE', '#04EE04', '#EE0404', '#EEEE04', '#04EEEE', '#EE04EE'],
     words = [],
     views = [],
+    letters = [],
     lastWord = -1,
 
   min = function(array) { 
     var result = array.indexOf(Math.min.apply(null, array));
-    if(result == -1) {
+    if(result === -1) {
       return 0;
-    } else{
+    } else {
       return result;
     }
   },
@@ -34,20 +35,20 @@ var WordsService = (function(){
   },
 
   randomLetter = function() {
-    return Letters[Math.floor(Math.random()*Letters.length)];
+    return letters[Math.floor(Math.random()*letters.length)];
   },
 
   randomLetters = function(num) {
-    if(num == 0) {
+    if(num === 0) {
       return '';
     } else {
       return randomLetter() + randomLetters(num-1);
     }
-  }
+  };
 
   return {
 
-    init: function(newWords, savedViews) {
+    init: function(newWords, languageLetters, savedViews) {
       if(typeof savedViews == 'undefined') {
         views = Array.apply(null, Array(words.length))
           .map(Number.prototype.valueOf, 0);        
@@ -56,6 +57,7 @@ var WordsService = (function(){
       }
 
       words = newWords.slice();
+      letters = languageLetters.slice();
 
       lastWord = -1;
     },
@@ -71,7 +73,7 @@ var WordsService = (function(){
     },
 
     getLetterColor: function(letter) {
-      return colors[Letters.indexOf(letter)%colors.length];
+      return colors[letters.indexOf(letter)%colors.length];
     }
 
   };

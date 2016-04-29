@@ -1,7 +1,7 @@
 var App = (function(){
-  'strict mode';
+  'use strict';
 
-  var currentState = 'home',
+  var currentState = 'words',
       currentWord = '',
 
   states = {
@@ -43,7 +43,7 @@ var App = (function(){
   function appendTo(parent) {
     return function(child) {
       parent.appendChild(child);
-    }
+    };
   }
 
   function removeElement(elem) {
@@ -99,11 +99,11 @@ var App = (function(){
 
   function fillInLetter(wordElem, letter) {
 
-    var letterIndex = word.indexOf(letter.toLowerCase());
+    var letterIndex = wordElem.textContent.indexOf(letter.toLowerCase());
     if(letterIndex == -1) {
       return false;
     } else {
-      console.log(letterIndex);
+      //console.log(letterIndex);
       var letterElems = wordElem.childNodes;
       letterElems[letterIndex].className = 'letter-container';
       return true;
@@ -123,9 +123,9 @@ var App = (function(){
 
   function fillInLetters(letters, elem) {
 
-    var letters = letters.split('').map(createClickableLetterElem);
+    var letterElems = letters.split('').map(createClickableLetterElem);
     
-    letters.forEach(appendTo(elem));
+    letterElems.forEach(appendTo(elem));
 
     return elem;    
 
@@ -173,6 +173,6 @@ var App = (function(){
 
 Words = ['guillermo', 'sofía', 'mamá', 'papá', 'noa'];
 
-WordsService.init(Words);
+WordsService.init(Words, Letters);
 
 App.init();

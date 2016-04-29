@@ -1,9 +1,10 @@
 describe('WordsService', function(){
-
+  'use strict';
+  
   var WS = WordsService;
 
   beforeEach(function(){
-    WS.init(Words);
+    WS.init(Words, Letters);
   });
   
   it('should have a getLetters function', function(){
@@ -46,7 +47,7 @@ describe('WordsService', function(){
     it('should return the lesser know words for the user', function(){
 
       var words = ['a', 'b', 'c'];
-      WS.init(words);
+      WS.init(words, Letters);
 
       var word1 = WS.getWord();
       var word2 = WS.getWord();
@@ -63,7 +64,7 @@ describe('WordsService', function(){
     
     it('should return the letters from the word, but unsorted', function(){
 
-      letters = WS.getLetters('word', 0);
+      var letters = WS.getLetters('word', 0);
       expect(letters.length).toEqual(4);
       expect(letters.indexOf('w')).not.toEqual(-1);
       expect(letters.indexOf('o')).not.toEqual(-1);
@@ -74,7 +75,7 @@ describe('WordsService', function(){
 
     it('should add N letters to the letters from the word', function(){
 
-      letters = WS.getLetters('word', 2);
+      var letters = WS.getLetters('word', 2);
       expect(letters.length).toEqual(6);
 
     });
@@ -87,7 +88,7 @@ describe('WordsService', function(){
 
       var colors = Letters.map(WS.getLetterColor);
     
-      for(var i=0; i<Letters.length; i++) {
+      for(var i=0; i < Letters.length; i++) {
         expect(WS.getLetterColor(Letters[i])).toEqual(colors[i]);
       }
 
