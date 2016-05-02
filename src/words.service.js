@@ -68,8 +68,29 @@ var WordsService = (function WordServiceDef() {
       return words[num];
     },
 
+    findUnfilledIndexOf: function(word, filledLetters, letter) {
+
+      var result = 0;
+      var index = 0;
+      var firstTime = true;
+
+      do {
+        if(!firstTime) {
+          result++;
+        }
+
+        index = word.substr(result).indexOf(letter);
+        result += index;
+        firstTime = false;
+
+      } while (index !== -1 && filledLetters[result]);
+
+      return result;
+
+    },
+
     getLetters: function(word, extraLetters) {
-      return shuffle(word) + randomLetters(extraLetters);
+      return shuffle(word + randomLetters(extraLetters));
     },
 
     getLetterColor: function(letter) {

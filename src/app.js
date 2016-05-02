@@ -3,6 +3,7 @@ var App = (function(){
 
   var currentState = 'words',
       currentWord = '',
+      filledLetters = [],
 
   states = {
     home: {
@@ -99,11 +100,11 @@ var App = (function(){
 
   function fillInLetter(wordElem, letter) {
 
-    var letterIndex = wordElem.textContent.indexOf(letter.toLowerCase());
-    if(letterIndex == -1) {
+    var letterIndex = WordsService.findUnfilledIndexOf(wordElem.textContent, filledLetters, letter);
+    if(letterIndex === -1) {
       return false;
     } else {
-      //console.log(letterIndex);
+      filledLetters[letterIndex] = true;
       var letterElems = wordElem.childNodes;
       letterElems[letterIndex].className = 'letter-container';
       return true;
