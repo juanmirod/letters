@@ -1,7 +1,7 @@
 var App = (function(){
   'use strict';
 
-  var currentState = 'words',
+  var currentState = 'home',
       currentWord = '',
       filledLetters = [],
 
@@ -148,6 +148,10 @@ var App = (function(){
     
   }
 
+  function checkFalse(element){ 
+    return element === false; 
+  }
+
   var exports = {
 
     init: function() {
@@ -163,6 +167,10 @@ var App = (function(){
       document.body.innerHTML = states[newState].html;
       states[newState].init();
 
+    },
+
+    isWordCompleted: function() {
+      return filledLetters.filter(checkFalse).length === 0;
     }
 
   };

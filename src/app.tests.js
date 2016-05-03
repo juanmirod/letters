@@ -7,26 +7,34 @@ describe('App', function() {
     WS.init(['a', 'b', 'c'], ['a', 'b', 'c']);
   });
 
-  it('should load a word in the words element', function() {
-    var elem = document.getElementById('word');
-    expect(elem.innerHTML).not.toEqual('Loading...');
-  });
+  describe('Words state', function(){ 
 
-  it('should load the letters in the letters element', function() {
-    var elem = document.getElementById('letters');
-    expect(elem.innerHTML).not.toEqual('');
-  });
-
-  it('should check if the user has completed the word', function() {
-    var event = new MouseEvent('click', {
-      'view': window,
-      'bubbles': true,
-      'cancelable': true
+    it('should load a word in the words element', function() {
+      App.changeState('words');
+      var elem = document.getElementById('word');
+      expect(elem.innerHTML).not.toEqual('Loading...');
     });
 
-    var letterElems = document.getElementsByClassName('letter-container');
-    letterElems[0].dispatchEvent(event);
+    it('should load the letters in the letters element', function() {
+      App.changeState('words');
+      var elem = document.getElementById('letters');
+      expect(elem.innerHTML).not.toEqual('');
+    });
 
-    expect(App.wordCompleted).toEqual(true);
+    it('should check if the user has completed the word', function() {
+      App.changeState('words');
+      var event = new MouseEvent('click', {
+        'view': window,
+        'bubbles': true,
+        'cancelable': true
+      });
+
+      var letterElems = document.getElementsByClassName('letter-container');
+      letterElems[0].dispatchEvent(event);
+
+      expect(App.isWordCompleted()).toEqual(true);
+    });
+    
   });
+
 });
