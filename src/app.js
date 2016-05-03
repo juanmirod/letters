@@ -9,10 +9,10 @@ var App = (function(){
     home: {
       html: '<div id="letters"></div><div id="start">JUGAR</div>',
       init: function() {
-        loadLetters("My first words");
+        loadLetters("Mis primeras palabras");
         var startElem = getElement('start');
         startElem.addEventListener('click', function(){
-          exports.changeState('words');
+          api.changeState('words');
         });
       }
     },
@@ -31,14 +31,8 @@ var App = (function(){
         loadWord(word);
         loadLetters(WordsService.getLetters(word, 2));
       }
-    },
-
-    completed: {
-      html: '',
-      init: function() {
-
-      }
     }
+
   };
 
   function appendTo(parent) {
@@ -85,6 +79,15 @@ var App = (function(){
     return elem;
   }
 
+  function checkCompletion() {
+    
+    if(api.isWordCompleted()) {
+      alert('FELICIDADES!');
+      api.changeState('words');
+    } 
+
+  }
+
   function addLetter() {
     var elem = getElement('word');
     
@@ -92,6 +95,7 @@ var App = (function(){
     
     if(fillInLetter(elem, this.textContent)) {
       removeElement(this);
+      checkCompletion();
     } else {
       this.className = 'letter-container wrong';
     }
@@ -137,6 +141,8 @@ var App = (function(){
     var elem = getElement('word');
     elem.innerHTML = '';
     fillInWord(word, elem);
+    filledLetters = Array.apply(null, Array(word.length))
+          .map(Boolean.prototype.valueOf, false);
 
   }
 
@@ -152,7 +158,7 @@ var App = (function(){
     return element === false; 
   }
 
-  var exports = {
+  var api = {
 
     init: function() {
       
@@ -175,7 +181,7 @@ var App = (function(){
 
   };
 
-  return exports;
+  return api;
 
 })();
 
