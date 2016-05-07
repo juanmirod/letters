@@ -35,28 +35,6 @@ var App = (function(){
 
   };
 
-  function appendTo(parent) {
-    return function(child) {
-      parent.appendChild(child);
-    };
-  }
-
-  function removeElement(elem) {
-    elem.parentElement.removeChild(elem);
-  }
-
-  function getElement(id) {
-    return document.getElementById(id);
-  }
-  
-  function getElementsByClass(name) {
-    return document.getElementsByName(name);
-  }
-
-  function createElement(tag) {
-    return document.createElement(tag);
-  }
-
   function createLetterElem(letter) {
 
     var elem = createElement('div');
@@ -79,16 +57,34 @@ var App = (function(){
     return elem;
   }
 
+  function showCompleted() {
+
+    var elem = createElement('div');
+    elem.id = 'congratulations';
+    elem.innerHTML = '¡¡FELICIDADES!!';
+    elem.addEventListener("click", loadNewWord, false);
+
+    document.body.appendChild(elem);
+
+  }
+
   function checkCompletion() {
     
     if(api.isWordCompleted()) {
-      alert('FELICIDADES!');
-      api.changeState('words');
+      showCompleted();
     } 
 
   }
 
+  function loadNewWord() {
+
+    removeElement(getElement('congratulations'));
+    api.changeState('words');
+
+  }
+
   function addLetter() {
+    
     var elem = getElement('word');
     
     this.removeEventListener('click', this.clickListener);
@@ -186,7 +182,7 @@ var App = (function(){
 })();
 
 
-Words = ['guillermo', 'sofía', 'mamá', 'papá', 'noa'];
+Words = ['sofía', 'mamá', 'papá', 'noa'];
 
 WordsService.init(Words, Letters);
 

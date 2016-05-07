@@ -3,18 +3,8 @@ var WordsService = (function WordServiceDef() {
 
   var colors = ['#0404EE', '#04EE04', '#EE0404', '#EEEE04', '#04EEEE', '#EE04EE'],
     words = [],
-    views = [],
     letters = [],
     lastWord = -1,
-
-  min = function(array) { 
-    var result = array.indexOf(Math.min.apply(null, array));
-    if(result === -1) {
-      return 0;
-    } else {
-      return result;
-    }
-  },
 
   /* Takes the letters from the word provided and returns 
     a new string with the letters shuffled 
@@ -48,14 +38,7 @@ var WordsService = (function WordServiceDef() {
 
   return {
 
-    init: function(newWords, languageLetters, savedViews) {
-      if(typeof savedViews == 'undefined') {
-        views = Array.apply(null, Array(words.length))
-          .map(Number.prototype.valueOf, 0);        
-      } else {
-        views = savedViews.slice();
-      }
-
+    init: function(newWords, languageLetters) {
       words = newWords.slice();
       letters = languageLetters.slice();
 
@@ -63,9 +46,15 @@ var WordsService = (function WordServiceDef() {
     },
 
     getWord: function() {
-      var num = min(views);
-      views[num]++;
-      return words[num];
+      // just returns a random word from the list
+      lastWord = Math.floor(Math.random() * words.length);
+      return words[lastWord];
+    },
+
+    getLastWord: function() {
+
+      return words[lastWord];
+      
     },
 
     findUnfilledIndexOf: function(word, filledLetters, letter) {

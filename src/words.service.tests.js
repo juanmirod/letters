@@ -18,6 +18,12 @@ describe('WordsService', function(){
     expect(WS.findUnfilledIndexOf).toBeDefined();
     
   });
+
+  it('should have a getLastWord function', function(){
+
+    expect(WS.getLastWord).toBeDefined();
+
+  });
   
   it('should have a getLetters function', function(){
 
@@ -38,30 +44,6 @@ describe('WordsService', function(){
 
       var word = WS.getWord();
       expect(Words.indexOf(word)).not.toBe(-1);
-
-    });
-
-    it('should return a different word that the last time', function(){
-
-      for(var i=0; i < 10; i++) {
-        var word1 = WS.getWord();
-        var word2 = WS.getWord();
-        expect(word1).not.toEqual(word2);
-      }
-
-    });
-
-    it('should return the lesser know words for the user', function(){
-
-      var words = ['a', 'b', 'c'];
-      WS.init(words, Letters);
-
-      var word1 = WS.getWord();
-      var word2 = WS.getWord();
-      var word3 = WS.getWord();
-
-      expect(word1).not.toEqual(word2);
-      expect(word2).not.toEqual(word3);
 
     });
 
@@ -95,6 +77,17 @@ describe('WordsService', function(){
       var index = WS.findUnfilledIndexOf('wooord', [false, true, true, false, false, false], 'o');
       expect(index).toEqual(3);
   
+    });
+
+  });
+
+  describe('getLastWord', function(){
+
+    it('should return the last word returned by getWord', function(){
+      var word = WS.getWord();
+      var last = WS.getLastWord();
+
+      expect(word).toEqual(last);
     });
 
   });

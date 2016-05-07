@@ -15,6 +15,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      {pattern: 'src/polyfills.js', included: true},
       {pattern: 'src/words.js', included: true},
       {pattern: 'src/words.service.js', included: true},
       {pattern: 'src/app.js', included: true},
