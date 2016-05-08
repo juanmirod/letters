@@ -34,6 +34,24 @@ var App = (function(){
         loadWord(word);
         loadLetters(WordsService.getLetters(word, _letters, 2));
       }
+    },
+
+    find: {
+      html: '<div id="container">' +
+            '<div id="find-letter">' +
+              'Loading ...' +
+            '</div>' +
+            '<div class="clearer"></div>' +
+            '<div id="letters">' +
+            '</div>' +
+            '</div>',
+      init: function() {
+        // select one letter, get more letters randomly, the user has to find all ocurrences
+        var letter = WordService.getLetter(_letters);
+        var letters = WordService.getLetters(letter+letter+letter, _letters, 15);
+        //loadLetter(letter);
+        loadLetters(WordsService.getLetters(word, _letters, 2));
+      }
     }
 
   };
@@ -86,6 +104,25 @@ var App = (function(){
 
   }
 
+
+  function loadWord(word) {
+
+    var elem = getElement('word');
+    elem.innerHTML = '';
+    fillInWord(word, elem);
+    _filledLetters = Array.apply(null, Array(word.length))
+          .map(Boolean.prototype.valueOf, false);
+
+  }
+
+  function loadLetters(letters) {
+
+    var elem = getElement('letters');
+    elem.innerHTML = '';
+    fillInLetters(letters, elem);
+    
+  }
+
   function addLetter() {
     
     var elem = getElement('word');
@@ -133,24 +170,6 @@ var App = (function(){
 
     return elem;    
 
-  }
-
-  function loadWord(word) {
-
-    var elem = getElement('word');
-    elem.innerHTML = '';
-    fillInWord(word, elem);
-    _filledLetters = Array.apply(null, Array(word.length))
-          .map(Boolean.prototype.valueOf, false);
-
-  }
-
-  function loadLetters(letters) {
-
-    var elem = getElement('letters');
-    elem.innerHTML = '';
-    fillInLetters(letters, elem);
-    
   }
 
   function checkFalse(element){ 

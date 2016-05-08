@@ -26,6 +26,12 @@ describe('WordsService', function(){
 
   });
 
+  it('should have a getLetter function', function(){
+
+    expect(WS.getLetter).toBeDefined();    
+
+  });
+
   it('should have a getLetterColor function', function(){
 
     expect(WS.getLetterColor).toBeDefined();
@@ -72,6 +78,17 @@ describe('WordsService', function(){
       var index = WS.findUnfilledIndexOf('wooord', [false, true, true, false, false, false], 'o');
       expect(index).toEqual(3);
   
+    });
+
+  });
+
+  describe('getLetter', function() {
+
+    it('should return a random letter from the array', function(){
+
+      var letter = WS.getLetter(Letters);
+      expect(Letters.indexOf(letter)).not.toEqual(-1);
+
     });
 
   });

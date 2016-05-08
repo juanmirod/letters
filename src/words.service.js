@@ -65,6 +65,12 @@ var WordsService = (function WordServiceDef() {
 
     },
 
+    getLetter: function(Letters) {
+
+      return randomLetter(Letters);
+    
+    },
+
     getLetters: function(word, letters, numExtraLetters) {
 
       return shuffle(word + randomLetters(letters, numExtraLetters));
