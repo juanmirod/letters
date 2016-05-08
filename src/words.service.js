@@ -1,15 +1,10 @@
 var WordsService = (function WordServiceDef() {
   'use strict';
 
-  var colors = ['#0404EE', '#04EE04', '#EE0404', '#EEEE04', '#04EEEE', '#EE04EE'],
-    words = [],
-    letters = [],
-    lastWord = -1,
-
   /* Takes the letters from the word provided and returns 
     a new string with the letters shuffled 
   */
-  shuffle = function(word) {
+  var shuffle = function(word) {
     
     var wordLetters = word.split(""),
         n = wordLetters.length;
@@ -24,37 +19,28 @@ var WordsService = (function WordServiceDef() {
 
   },
 
-  randomLetter = function() {
+  randomLetter = function(letters) {
+
     return letters[Math.floor(Math.random()*letters.length)];
+  
   },
 
-  randomLetters = function(num) {
-    if(num === 0) {
+  randomLetters = function(letters, num) {
+  
+    if(num === 0 || !letters) {
       return '';
     } else {
-      return randomLetter() + randomLetters(num-1);
+      return randomLetter(letters) + randomLetters(letters, num-1);
     }
+  
   };
 
   return {
 
-    init: function(newWords, languageLetters) {
-      words = newWords.slice();
-      letters = languageLetters.slice();
-
-      lastWord = -1;
-    },
-
-    getWord: function() {
-      // just returns a random word from the list
-      lastWord = Math.floor(Math.random() * words.length);
-      return words[lastWord];
-    },
-
-    getLastWord: function() {
-
-      return words[lastWord];
+    getRandomIndex: function(words) {
       
+      return Math.floor(Math.random() * words.length);
+
     },
 
     findUnfilledIndexOf: function(word, filledLetters, letter) {
@@ -64,6 +50,7 @@ var WordsService = (function WordServiceDef() {
       var firstTime = true;
 
       do {
+  
         if(!firstTime) {
           result++;
         }
@@ -78,12 +65,16 @@ var WordsService = (function WordServiceDef() {
 
     },
 
-    getLetters: function(word, extraLetters) {
-      return shuffle(word + randomLetters(extraLetters));
+    getLetters: function(word, letters, numExtraLetters) {
+
+      return shuffle(word + randomLetters(letters, numExtraLetters));
+
     },
 
-    getLetterColor: function(letter) {
+    getLetterColor: function(colors, letters, letter) {
+
       return colors[letters.indexOf(letter)%colors.length];
+
     }
 
   };

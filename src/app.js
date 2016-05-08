@@ -1,9 +1,11 @@
 var App = (function(){
   'use strict';
 
-  var currentState = 'home',
-      currentWord = '',
-      filledLetters = [],
+  var _currentState = 'home',
+      _colors,
+      _words,
+      _letters,
+      _filledLetters = [],
 
   states = {
     home: {
@@ -27,9 +29,10 @@ var App = (function(){
             '</div>' +
             '</div>',
       init: function() {
-        var word = WordsService.getWord();
+        var randomIndex = WordsService.getRandomIndex(_words);
+        var word = _words[randomIndex];
         loadWord(word);
-        loadLetters(WordsService.getLetters(word, 2));
+        loadLetters(WordsService.getLetters(word, _letters, 2));
       }
     }
 
@@ -40,7 +43,7 @@ var App = (function(){
     var elem = createElement('div');
 
     elem.className = 'empty-letter-container';
-    elem.innerHTML = '<div class="letter" style="border-color:' + WordsService.getLetterColor(letter) + ';">' + letter.toUpperCase() + '</div>';
+    elem.innerHTML = '<div class="letter" style="border-color:' + WordsService.getLetterColor(_colors, _letters, letter) + ';">' + letter.toUpperCase() + '</div>';
 
     return elem;
 
@@ -51,7 +54,7 @@ var App = (function(){
     var elem = createElement('div');
 
     elem.className = 'letter-container';
-    elem.innerHTML = '<div class="letter" style="border-color:' + WordsService.getLetterColor(letter) + ';">' + letter.toUpperCase() + '</div>';
+    elem.innerHTML = '<div class="letter" style="border-color:' + WordsService.getLetterColor(_colors, _letters, letter) + ';">' + letter.toUpperCase() + '</div>';
     elem.clickListener = elem.addEventListener("click", addLetter, false);
 
     return elem;
@@ -100,11 +103,11 @@ var App = (function(){
 
   function fillInLetter(wordElem, letter) {
 
-    var letterIndex = WordsService.findUnfilledIndexOf(wordElem.textContent, filledLetters, letter);
+    var letterIndex = WordsService.findUnfilledIndexOf(wordElem.textContent, _filledLetters, letter);
     if(letterIndex === -1) {
       return false;
     } else {
-      filledLetters[letterIndex] = true;
+      _filledLetters[letterIndex] = true;
       var letterElems = wordElem.childNodes;
       letterElems[letterIndex].className = 'letter-container';
       return true;
@@ -137,7 +140,7 @@ var App = (function(){
     var elem = getElement('word');
     elem.innerHTML = '';
     fillInWord(word, elem);
-    filledLetters = Array.apply(null, Array(word.length))
+    _filledLetters = Array.apply(null, Array(word.length))
           .map(Boolean.prototype.valueOf, false);
 
   }
@@ -156,23 +159,26 @@ var App = (function(){
 
   var api = {
 
-    init: function() {
-      
-      document.body.innerHTML = states[currentState].html;
-      states[currentState].init();
+    init: function(colors, words, letters) {
+
+      _colors = colors;
+      _words = words;
+      _letters = letters;
+      document.body.innerHTML = states[_currentState].html;
+      states[_currentState].init();
     
     },
 
     changeState: function(newState) {
 
-      //states[currentState].destroy();
+      //states[_currentState].destroy();
       document.body.innerHTML = states[newState].html;
       states[newState].init();
 
     },
 
     isWordCompleted: function() {
-      return filledLetters.filter(checkFalse).length === 0;
+      return _filledLetters.filter(checkFalse).length === 0;
     }
 
   };
@@ -180,10 +186,3 @@ var App = (function(){
   return api;
 
 })();
-
-
-Words = ['sofía', 'mamá', 'papá', 'noa'];
-
-WordsService.init(Words, Letters);
-
-App.init();

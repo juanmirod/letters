@@ -1,28 +1,23 @@
 describe('WordsService', function(){
   'use strict';
 
-  var WS = WordsService;
+  var WS = WordsService,
+      Colors = ['#0404EE', '#04EE04', '#EE0404', '#EEEE04', '#04EEEE', '#EE04EE'],
+      Words = ['sofia', 'mama', 'alba'],
+      Letters = ['a', 'b', 'c', 'd', 'e', 'f',
+        'g', 'h', 'j', 'k', 'l', 'm', 'n', 'ñ', 'o', 'p',
+        'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 
-  beforeEach(function(){
-    WS.init(Words, Letters);
-  });
-  
-  it('should have a getWord function', function(){
-
-    expect(WS.getWord).toBeDefined();
+  it('should have a getRandomIndex function', function(){
     
+    expect(WS.getRandomIndex).toBeDefined();
+
   });
 
   it('should have a findUnfilledIndexOf function', function(){
 
     expect(WS.findUnfilledIndexOf).toBeDefined();
     
-  });
-
-  it('should have a getLastWord function', function(){
-
-    expect(WS.getLastWord).toBeDefined();
-
   });
   
   it('should have a getLetters function', function(){
@@ -38,12 +33,12 @@ describe('WordsService', function(){
   });
 
 
-  describe('getWords', function() {
+  describe('getRandomIndex', function() {
     
     it('should return a word from the list of words', function(){
 
-      var word = WS.getWord();
-      expect(Words.indexOf(word)).not.toBe(-1);
+      var randomIndex = WS.getRandomIndex(Words);
+      expect(Words.indexOf(Words[randomIndex])).not.toBe(-1);
 
     });
 
@@ -81,22 +76,11 @@ describe('WordsService', function(){
 
   });
 
-  describe('getLastWord', function(){
-
-    it('should return the last word returned by getWord', function(){
-      var word = WS.getWord();
-      var last = WS.getLastWord();
-
-      expect(word).toEqual(last);
-    });
-
-  });
-
   describe('getLetters', function() { 
     
     it('should return the letters from the word, but unsorted', function(){
 
-      var letters = WS.getLetters('word', 0);
+      var letters = WS.getLetters('word');
       expect(letters.length).toEqual(4);
       expect(letters.indexOf('w')).not.toEqual(-1);
       expect(letters.indexOf('o')).not.toEqual(-1);
@@ -107,7 +91,7 @@ describe('WordsService', function(){
 
     it('should add N letters to the letters from the word', function(){
 
-      var letters = WS.getLetters('word', 2);
+      var letters = WS.getLetters('word', Letters, 2);
       expect(letters.length).toEqual(6);
 
     });
@@ -118,10 +102,12 @@ describe('WordsService', function(){
 
     it('should assign always the same color to each letter', function(){
 
-      var colors = Letters.map(WS.getLetterColor);
+      var colors = Letters.map(function(letter){
+        return WS.getLetterColor(Colors, Letters, letter);
+      });
     
       for(var i=0; i < Letters.length; i++) {
-        expect(WS.getLetterColor(Letters[i])).toEqual(colors[i]);
+        expect(WS.getLetterColor(Colors, Letters, Letters[i])).toEqual(colors[i]);
       }
 
     });
