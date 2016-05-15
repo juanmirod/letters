@@ -10,8 +10,8 @@ Actualmente el juego se encuentra en desarrollo. El objetivo inicial es tener do
 
 Listado de cosas pendientes:
 
-[] Estilos para mostrar el play y el siguiente correctamente.
-[] Estilos para hacer el juego responsivo a móvil y tablet.
-[] Modo de juego "Encuentra las letras"
-[] Sistema de puntuación con estrellas y pantalla que muestre las estrellas conseguidas.
+- [ ] Estilos para mostrar el play y el siguiente correctamente.
+- [ ] Estilos para hacer el juego responsivo a móvil y tablet.
+- [ ] Modo de juego "Encuentra las letras"
+- [ ] Sistema de puntuación con estrellas y pantalla que muestre las estrellas conseguidas.
 
